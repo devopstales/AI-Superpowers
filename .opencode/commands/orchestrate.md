@@ -1,135 +1,88 @@
 ---
-description: Legacy slash-entry shim for dmux-workflows and autonomous-agent-harness. Prefer the skills directly.
+description: Orchestrate multiple agents for complex tasks
+agent: planner
+subtask: true
 ---
 
-# Orchestrate Command (Legacy Shim)
+# Orchestrate Command
 
-Use this only if you still invoke `/orchestrate`. The maintained orchestration guidance lives in `skills/dmux-workflows/SKILL.md` and `skills/autonomous-agent-harness/SKILL.md`.
+Orchestrate multiple specialized agents for this complex task: $ARGUMENTS
 
-## Canonical Surface
+## Your Task
 
-- Prefer `dmux-workflows` for parallel panes, worktrees, and multi-agent splits.
-- Prefer `autonomous-agent-harness` for longer-running loops, governance, scheduling, and control-plane style execution.
-- Keep this file only as a compatibility entry point.
+1. **Analyze task complexity** and break into subtasks
+2. **Identify optimal agents** for each subtask
+3. **Create execution plan** with dependencies
+4. **Coordinate execution** - parallel where possible
+5. **Synthesize results** into unified output
 
-## Arguments
+## Available Agents
 
-`$ARGUMENTS`
+| Agent | Specialty | Use For |
+|-------|-----------|---------|
+| planner | Implementation planning | Complex feature design |
+| architect | System design | Architectural decisions |
+| code-reviewer | Code quality | Review changes |
+| security-reviewer | Security analysis | Vulnerability detection |
+| tdd-guide | Test-driven dev | Feature implementation |
+| build-error-resolver | Build fixes | TypeScript/build errors |
+| e2e-runner | E2E testing | User flow testing |
+| doc-updater | Documentation | Updating docs |
+| refactor-cleaner | Code cleanup | Dead code removal |
+| go-reviewer | Go code | Go-specific review |
+| go-build-resolver | Go builds | Go build errors |
+| database-reviewer | Database | Query optimization |
 
-## Delegation
+## Orchestration Patterns
 
-Apply the orchestration skills instead of maintaining a second workflow spec here.
-- Start with `dmux-workflows` for split/parallel execution.
-- Pull in `autonomous-agent-harness` when the user is really asking for persistent loops, governance, or operator-layer behavior.
-- Keep handoffs structured, but let the skills define the maintained sequencing rules.
-Security Reviewer: [summary]
-
-FILES CHANGED
--------------
-[List all files modified]
-
-TEST RESULTS
-------------
-[Test pass/fail summary]
-
-SECURITY STATUS
----------------
-[Security findings]
-
-RECOMMENDATION
---------------
-[SHIP / NEEDS WORK / BLOCKED]
+### Sequential Execution
 ```
-
-## Parallel Execution
-
-For independent checks, run agents in parallel:
-
-```markdown
-### Parallel Phase
-Run simultaneously:
-- code-reviewer (quality)
-- security-reviewer (security)
-- architect (design)
-
-### Merge Results
-Combine outputs into single report
+planner → tdd-guide → code-reviewer → security-reviewer
 ```
+Use when: Later tasks depend on earlier results
 
-For external tmux-pane workers with separate git worktrees, use `node scripts/orchestrate-worktrees.js plan.json --execute`. The built-in orchestration pattern stays in-process; the helper is for long-running or cross-harness sessions.
-
-When workers need to see dirty or untracked local files from the main checkout, add `seedPaths` to the plan file. ECC overlays only those selected paths into each worker worktree after `git worktree add`, which keeps the branch isolated while still exposing in-flight local scripts, plans, or docs.
-
-```json
-{
-  "sessionName": "workflow-e2e",
-  "seedPaths": [
-    "scripts/orchestrate-worktrees.js",
-    "scripts/lib/tmux-worktree-orchestrator.js",
-    ".claude/plan/workflow-e2e-test.json"
-  ],
-  "workers": [
-    { "name": "docs", "task": "Update orchestration docs." }
-  ]
-}
+### Parallel Execution
 ```
-
-To export a control-plane snapshot for a live tmux/worktree session, run:
-
-```bash
-node scripts/orchestration-status.js .claude/plan/workflow-visual-proof.json
+┌→ security-reviewer
+planner →├→ code-reviewer
+└→ architect
 ```
+Use when: Tasks are independent
 
-The snapshot includes session activity, tmux pane metadata, worker states, objectives, seeded overlays, and recent handoff summaries in JSON form.
-
-## Operator Command-Center Handoff
-
-When the workflow spans multiple sessions, worktrees, or tmux panes, append a control-plane block to the final handoff:
-
-```markdown
-CONTROL PLANE
--------------
-Sessions:
-- active session ID or alias
-- branch + worktree path for each active worker
-- tmux pane or detached session name when applicable
-
-Diffs:
-- git status summary
-- git diff --stat for touched files
-- merge/conflict risk notes
-
-Approvals:
-- pending user approvals
-- blocked steps awaiting confirmation
-
-Telemetry:
-- last activity timestamp or idle signal
-- estimated token or cost drift
-- policy events raised by hooks or reviewers
+### Fan-Out/Fan-In
 ```
-
-This keeps planner, implementer, reviewer, and loop workers legible from the operator surface.
-
-## Arguments
-
-$ARGUMENTS:
-- `feature <description>` - Full feature workflow
-- `bugfix <description>` - Bug fix workflow
-- `refactor <description>` - Refactoring workflow
-- `security <description>` - Security review workflow
-- `custom <agents> <description>` - Custom agent sequence
-
-## Custom Workflow Example
-
+         ┌→ agent-1 ─┐
+planner →├→ agent-2 ─┼→ synthesizer
+         └→ agent-3 ─┘
 ```
-/orchestrate custom "architect,tdd-guide,code-reviewer" "Redesign caching layer"
-```
+Use when: Multiple perspectives needed
 
-## Tips
+## Execution Plan Format
 
-1. **Start with planner** for complex features
-2. **Always include code-reviewer** before merge
-3. **Use security-reviewer** for auth/payment/PII
-4. **Keep handoffs concise** - focus on what next agent needs
-5. **Run verification** between agents if needed
+### Phase 1: [Name]
+- Agent: [agent-name]
+- Task: [specific task]
+- Depends on: [none or previous phase]
+
+### Phase 2: [Name] (parallel)
+- Agent A: [agent-name]
+  - Task: [specific task]
+- Agent B: [agent-name]
+  - Task: [specific task]
+- Depends on: Phase 1
+
+### Phase 3: Synthesis
+- Combine results from Phase 2
+- Generate unified output
+
+## Coordination Rules
+
+1. **Plan before execute** - Create full execution plan first
+2. **Minimize handoffs** - Reduce context switching
+3. **Parallelize when possible** - Independent tasks in parallel
+4. **Clear boundaries** - Each agent has specific scope
+5. **Single source of truth** - One agent owns each artifact
+
+---
+
+**NOTE**: Complex tasks benefit from multi-agent orchestration. Simple tasks should use single agents directly.
