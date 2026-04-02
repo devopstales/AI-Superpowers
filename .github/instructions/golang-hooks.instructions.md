@@ -1,0 +1,14 @@
+---
+applyTo: "**/*.go"
+---
+# Go Hooks
+
+> This file extends [common/hooks.instructions.md](../common/hooks.instructions.md) with Go specific content.
+
+## PostToolUse Hooks
+
+Configure in `~/.agents/settings.json`:
+
+- **gofmt/goimports**: Auto-format `.go` files after edit
+- **go vet**: Run static analysis after editing `.go` files
+- **staticcheck**: Run extended static checks on modified packages
