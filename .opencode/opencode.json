@@ -22,7 +22,9 @@
   ],
   "plugin": [
     "./plugins",
-    "ecc-universal"
+    "ecc-universal",
+    "opencode-plugin-openspec",
+    "opencode-codebase-index"
   ],
   "agent": {
     "build": {
