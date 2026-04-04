@@ -1,0 +1,5 @@
+node_modules
+package-lock.json
+install*.sh*
+# CocoIndex Code (ccc)
+/.cocoindex_code/

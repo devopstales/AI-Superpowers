@@ -64,20 +64,20 @@ rules/
 
 ```bash
 # 创建目标目录
-mkdir -p ~/.agents/rules
+mkdir -p ~/.claude/rules
 
 # 安装通用规则（所有项目必需）
-cp -r rules/common ~/.agents/rules/common
+cp -r rules/common ~/.claude/rules/common
 
 # 安装中文翻译版本（可选）
-cp -r rules/zh ~/.agents/rules/zh
+cp -r rules/zh ~/.claude/rules/zh
 
 # 根据项目技术栈安装语言特定规则
-cp -r rules/typescript ~/.agents/rules/typescript
-cp -r rules/python ~/.agents/rules/python
-cp -r rules/golang ~/.agents/rules/golang
-cp -r rules/swift ~/.agents/rules/swift
-cp -r rules/php ~/.agents/rules/php
+cp -r rules/typescript ~/.claude/rules/typescript
+cp -r rules/python ~/.claude/rules/python
+cp -r rules/golang ~/.claude/rules/golang
+cp -r rules/swift ~/.claude/rules/swift
+cp -r rules/php ~/.claude/rules/php
 ```
 
 ## 规则 vs 技能

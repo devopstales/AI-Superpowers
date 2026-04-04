@@ -50,14 +50,14 @@ rules/
 
 ```bash
 # Install common rules (required for all projects)
-cp -r rules/common ~/.agents/rules/common
+cp -r rules/common ~/.claude/rules/common
 
 # Install language-specific rules based on your project's tech stack
-cp -r rules/typescript ~/.agents/rules/typescript
-cp -r rules/python ~/.agents/rules/python
-cp -r rules/golang ~/.agents/rules/golang
-cp -r rules/swift ~/.agents/rules/swift
-cp -r rules/php ~/.agents/rules/php
+cp -r rules/typescript ~/.claude/rules/typescript
+cp -r rules/python ~/.claude/rules/python
+cp -r rules/golang ~/.claude/rules/golang
+cp -r rules/swift ~/.claude/rules/swift
+cp -r rules/php ~/.claude/rules/php
 
 # Attention ! ! ! Configure according to your actual project requirements; the configuration here is for reference only.
 ```

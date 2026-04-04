@@ -1,0 +1,6 @@
+{
+    "GitLab-http": {
+        "type": "streamable-http",
+        "url": "https://gitlab.example.com/api/v4/mcp"
+    }
+}

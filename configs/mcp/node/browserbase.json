@@ -1,0 +1,9 @@
+{
+    "browserbase-npx": {
+      "command": "npx",
+      "args": ["-y", "@browserbasehq/mcp-server-browserbase"],
+      "env": {
+        "BROWSERBASE_API_KEY": "YOUR_BROWSERBASE_KEY_HERE"
+      }
+    }
+}

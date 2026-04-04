@@ -1,0 +1,11 @@
+{
+    "codemap-docker": {
+        "command": "docker",
+        "args": [
+          "run", "-i", "--rm",
+          "--name", "ai-mcp-codemap",
+          "-v", ".:/project",
+          "ghcr.io/breca/mcp-codemap"
+        ]
+      }
+}

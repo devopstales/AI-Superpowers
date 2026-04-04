@@ -1,0 +1,6 @@
+{
+    "token-optimizer-npx": {
+      "command": "npx",
+      "args": ["-y", "token-optimizer-mcp"]
+    }
+}

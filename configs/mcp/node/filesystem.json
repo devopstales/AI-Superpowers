@@ -1,0 +1,6 @@
+{
+    "filesystem-npx": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/your/projects"]
+    }
+}

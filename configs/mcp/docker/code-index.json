@@ -1,0 +1,11 @@
+{
+    "code-index-docker": {
+        "command": "docker",
+        "args": [
+          "run", "-i", "--rm",
+          "--name", "ai-mcp-code-index",
+          "-v", ".:/workspace",
+          "ghcr.io/code-index-mcp/mcp-index:minimal"
+        ]
+      }
+}

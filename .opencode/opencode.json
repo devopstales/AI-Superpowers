@@ -6,7 +6,6 @@
   "instructions": [
     "AGENTS.md",
     "CONTRIBUTING.md",
-    "rules/*.md",
     "instructions/INSTRUCTIONS.md",
     "skills/tdd-workflow/SKILL.md",
     "skills/security-review/SKILL.md",
@@ -21,10 +20,7 @@
     "skills/eval-harness/SKILL.md"
   ],
   "plugin": [
-    "./plugins",
-    "ecc-universal",
-    "opencode-plugin-openspec",
-    "opencode-codebase-index"
+    "./plugins"
   ],
   "agent": {
     "build": {
@@ -324,26 +320,6 @@
         "edit": true,
         "bash": true
       }
-    },
-    "gentleman": {
-      "description": "Senior Architect mentor - helpful first, challenging when it matters",
-      "mode": "primary",
-      "prompt": "{file:./AGENTS.md}",
-      "tools": {
-        "edit": true,
-        "write": true
-      }
-    },
-    "sdd-orchestrator": {
-      "description": "Gentleman personality + SDD delegate-only orchestrator",
-      "mode": "all",
-      "prompt": "{file:./AGENTS.md}",
-      "tools": {
-        "bash": true,
-        "edit": true,
-        "read": true,
-        "write": true
-      }
     }
   },
   "command": {
@@ -480,42 +456,7 @@
       "template": "{file:commands/projects.md}\n\n$ARGUMENTS"
     }
   },
-  "mcp": {
-    "context7": {
-      "enabled": true,
-      "type": "remote",
-      "url": "https://mcp.context7.com/mcp"
-    },
-    "engram": {
-      "command": [
-        "engram",
-        "mcp",
-        "--tools=agent"
-      ],
-      "enabled": true,
-      "type": "local"
-    }
-  },
   "permission": {
-    "mcp_*": "ask",
-    "bash": {
-      "*": "allow",
-      "git commit *": "ask",
-      "git push": "ask",
-      "git push *": "ask",
-      "git push --force *": "ask",
-      "git rebase *": "ask",
-      "git reset --hard *": "ask"
-    },
-    "read": {
-      "*": "allow",
-      "**/.env": "deny",
-      "**/.env.*": "deny",
-      "**/credentials.json": "deny",
-      "**/secrets/**": "deny",
-      "*.env": "deny",
-      "*.env.*": "deny"
-    }
-
+    "mcp_*": "ask"
   }
 }

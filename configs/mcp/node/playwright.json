@@ -1,0 +1,6 @@
+{
+    "playwright-npx": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp", "--browser", "chrome"]
+    }
+}

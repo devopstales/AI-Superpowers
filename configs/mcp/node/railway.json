@@ -1,0 +1,6 @@
+{
+    "railway-npx": {
+      "command": "npx",
+      "args": ["-y", "@railway/mcp-server"]
+    }
+}

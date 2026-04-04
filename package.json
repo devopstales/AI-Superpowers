@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "@browsermcp/mcp": "^0.1.3",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "chrome-devtools-mcp": "^0.21.0",
+    "opencode-codebase-index": "^0.6.1",
+    "zod": "^3.25.76",
+    "@modelcontextprotocol/server-github": "latest",
+    "@modelcontextprotocol/server-memory": "latest",
+    "@modelcontextprotocol/server-sequential-thinking": "latest",
+    "@modelcontextprotocol/server-filesystem": "latest",
+    "@upstash/context7-mcp": "latest",
+    "@supabase/mcp-server-supabase": "latest",
+    "@railway/mcp-server": "latest",
+    "@playwright/mcp": "latest",
+    "@browserbasehq/mcp-server-browserbase": "latest",
+    "@magicuidesign/mcp": "latest",
+    "firecrawl-mcp": "latest",
+    "exa-mcp-server": "latest",
+    "fal-ai-mcp-server": "latest",
+    "confluence-mcp-server": "latest",
+    "token-optimizer-mcp": "latest"
+  }
+}
