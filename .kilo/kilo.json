@@ -1,0 +1,10 @@
+{
+  "permission": {
+    "read": {
+      "/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/*": "allow"
+    },
+    "external_directory": {
+      "/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/*": "allow"
+    }
+  }
+}

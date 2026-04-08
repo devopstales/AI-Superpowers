@@ -457,6 +457,12 @@
     }
   },
   "permission": {
-    "mcp_*": "ask"
+    "mcp_*": "ask",
+    "read": {
+      "/Users/paladm/git/ai-test/AI-Superpowers/.opencode/get-shit-done/*": "allow"
+    },
+    "external_directory": {
+      "/Users/paladm/git/ai-test/AI-Superpowers/.opencode/get-shit-done/*": "allow"
+    }
   }
 }

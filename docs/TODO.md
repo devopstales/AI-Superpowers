@@ -8,18 +8,19 @@
 * Opencode
   * OpenChamber
 * qwen code
+* pi ???
 
 ## IDE Configs
 
-|           | Copilot | Cursor | Kilo | Opencode | qwen | Antigravity |
-| --------- | ------- | ------ | ---- | -------- | ---- | ----------- |
-| Commands  | `.github/prompts/` | `.cursor/commands/`? | `.kilo/commands/` | `.opencode/commands/*.md` | `.qwen/commands/` | `.agents/workflows` |
-| Skills    | `.agents/skills/` | `.agents/skills/` | `.kilo/skills/` | `.opencode/skills/` | `.qwen/skills/` | `.agents/skills/` |
-| Rules     | `.vscode/instructions/*.instructions.md`, `AGENTS.md` | `.cursor/rules/` | `.kilo/rules/` | `opencode/rules/`, `AGENTS.md` | `.qwen/rules/`, `QWEN.md` | `.agents/rules/` |
-| Agents    | `.github/agents/` | `.cursor/agents/` | `.kilo/agents/` | `.opencode/agents/` |      | ? |
-| Hooks     | `.github/hooks/*.json` | `.cursor/hooks.json`, `.cursor/hooks/` | ? | `.opencode/hook/hooks.md` |      | ? |
-| MCP       | `.vscode/mcp.json` | `.cursor/mcp.json` | `.kilo/kilo.jsonc` | `.opencode/opencode.jsonc` | `.qwen/settings.json` | `~/.gemini/antigravity/mcp_config.json` |
-| plugins       |  | `.cursor/plugins/` |      | `.opencode/plugins/` |    |             |
+|           | Copilot | Cursor | Kilo | Opencode | qwen | Antigravity | Pi |
+| --------- | ------- | ------ | ---- | -------- | ---- | ----------- | -- |
+| Commands  | `.github/prompts/` | `.cursor/commands/`? | `.kilo/commands/` | `.opencode/commands/*.md` | `.qwen/commands/` | `.agents/workflows` | ?  |
+| Skills    | `.agents/skills/`, `.claude/skills/`, `.github/skills` | `.agents/skills/`, `.cursor/skills/` | `.agents/skills/ `, `.claude/skills/ `, `.kilo/skills/` | `.agents/skills/`, `.claude/skills/`, `.opencode/skills/` | `.qwen/skills/` | `.agents/skills/` | ?  |
+| Rules     | `.vscode/instructions/*.instructions.md`, `AGENTS.md` | `.cursor/rules/` | `.kilo/rules/` | `opencode/rules/`, `AGENTS.md` | `.qwen/rules/`, `QWEN.md` | `.agents/rules/`, `.agent/skills/` | ?  |
+| Agents    | `.github/agents/` | `.cursor/agents/` | `.kilo/agents/` | `.opencode/agents/` | `.qwen/agents/` | ? | ?  |
+| Hooks     | `.github/hooks/*.json` | `.cursor/hooks.json`, `.cursor/hooks/` | ? | `.opencode/hook/hooks.md` | `.agents/hooks/` | ? | ?  |
+| MCP       | `.vscode/mcp.json` | `.cursor/mcp.json` | `.kilo/kilo.jsonc` | `.opencode/opencode.jsonc` | `.qwen/settings.json` | `~/.gemini/antigravity/mcp_config.json` | ?  |
+| plugins       | X | `.cursor/plugins/` | X    | `.opencode/plugins/` | X  | X           | ?  |
 
 ### VSCode
 
@@ -156,28 +157,34 @@
 # https://github.com/QwenLM/qwen-code/issues/1708
 ```
 
-## IDE Functions
+### pi
 
-|           | Copilot | Cursor | Kilo | Opencode | qwen | Antigravity |
-| --------- | ------- | ------ | ---- | -------- | ---- | ----------- |
-| Commands  | `.github/prompts/` | — | 83 | 92 | 9 | — |
-| Skills    | 249 | 249 | 76 | 88 | — | 249 |
-| Rules     | `.vscode/instructions/*.instructions.md`, `AGENTS.md` | `.cursor/rules/` | `.kilo/rules/` | `opencode/rules/`, `AGENTS.md` | `.qwen/rules/`, `QWEN.md` | `.agents/rules/` |
-| Agents    | `.github/agents/` | `.cursor/agents/` | `.kilo/agents/` | `.opencode/agents/` | — | — |
-| Hooks     | `.github/hooks/*.json` | `.cursor/hooks.json`, `.cursor/hooks/` | — | `.opencode/hook/hooks.md` | — | — |
-| MCP       | `.vscode/mcp.json` | `.cursor/mcp.json` | `.kilo/kilo.jsonc` | `.opencode/opencode.jsonc` | `.qwen/settings.json` | `~/.gemini/antigravity/mcp_config.json` |
-| plugins   | — | `.cursor/plugins/` | — | `.opencode/plugins/` | — | — |
+```bash
+npm install -g @mariozechner/pi-coding-agent
+```
 
-> **Note:** Skills counts reflect directories in `.agents/skills/` (source of truth). Cursor, Kilo, and Opencode reference subsets from this location.
+# Tools
+
+## OpenSpec
+
+## GSD-2
+
+```bash
+npm install -g gsd-pi
+gsd install npm:pi-dashscope
+```
 
 ## Sources
 
 * [X] [Everything Claude Code](https://github.com/affaan-m/everything-claude-code)
 * [X] [Antigravity Kit](https://github.com/vudovn/antigravity-kit)
 * [X] [AI Gentle Stack](https://github.com/Gentleman-Programming/gentle-ai)
+* [ ] [Antigravity Skills](https://github.com/guanyang/antigravity-skills)
 * [ ] [context-mode](https://github.com/mksglu/context-mode/tree/main/configs)
 * [ ] [antigravity-awesome-skills](https://github.com/sickn33/antigravity-awesome-skills)
 * [ ] [awesome-codex-subagents](https://github.com/VoltAgent/awesome-codex-subagents)
 * [ ] [superpowers](https://github.com/obra/superpowers)
 * [X] [Awesome Copilot](https://github.com/github/awesome-copilot)
   * [Awesome Copilot Agents](https://awesome-copilot.github.com/agents/)
+* [X] [GSD](https://github.com/vudovn/antigravity-kit)
+* [ ] [GSD-2](https://github.com/gsd-build/gsd-2)
