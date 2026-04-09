@@ -183,7 +183,7 @@ gsd install npm:pi-dashscope
 * [ ] [context-mode](https://github.com/mksglu/context-mode/tree/main/configs)
 * [ ] [antigravity-awesome-skills](https://github.com/sickn33/antigravity-awesome-skills)
 * [ ] [awesome-codex-subagents](https://github.com/VoltAgent/awesome-codex-subagents)
-* [ ] [superpowers](https://github.com/obra/superpowers)
+* [-] [superpowers](https://github.com/obra/superpowers)
 * [X] [Awesome Copilot](https://github.com/github/awesome-copilot)
   * [Awesome Copilot Agents](https://awesome-copilot.github.com/agents/)
 * [X] [GSD](https://github.com/vudovn/antigravity-kit)

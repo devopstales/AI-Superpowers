@@ -5,6 +5,9 @@
         "command": "node .cursor/hooks/session-start.js",
         "event": "sessionStart",
         "description": "Load previous context and detect environment"
+      },
+      {
+        "command": "./hooks/session-start"
       }
     ],
     "sessionEnd": [

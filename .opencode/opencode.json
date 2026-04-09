@@ -20,7 +20,8 @@
     "skills/eval-harness/SKILL.md"
   ],
   "plugin": [
-    "./plugins"
+    "./plugins",
+    "superpowers@git+https://github.com/obra/superpowers.git"
   ],
   "agent": {
     "build": {
@@ -459,10 +460,10 @@
   "permission": {
     "mcp_*": "ask",
     "read": {
-      "/Users/paladm/git/ai-test/AI-Superpowers/.opencode/get-shit-done/*": "allow"
+      "$PWD/.opencode/get-shit-done/*": "allow"
     },
     "external_directory": {
-      "/Users/paladm/git/ai-test/AI-Superpowers/.opencode/get-shit-done/*": "allow"
+      "$PWD/.opencode/get-shit-done/*": "allow"
     }
   }
 }
