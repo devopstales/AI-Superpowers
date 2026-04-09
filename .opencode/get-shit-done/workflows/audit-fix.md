@@ -32,7 +32,7 @@ Invoke the source audit command and capture output.
 
 For `audit-uat` source:
 ```bash
-INIT=$(node "/Users/paladm/git/ai-test/AI-Superpowers/.opencode/get-shit-done/bin/gsd-tools.cjs" init audit-uat 2>/dev/null || echo "{}")
+INIT=$(node ".opencode/get-shit-done/bin/gsd-tools.cjs" init audit-uat 2>/dev/null || echo "{}")
 if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 ```
 

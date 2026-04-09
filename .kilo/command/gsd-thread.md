@@ -61,7 +61,7 @@ Create a new thread:
 
 1. Generate slug from description:
    ```bash
-   SLUG=$(node "/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/bin/gsd-tools.cjs" generate-slug "$ARGUMENTS" --raw)
+   SLUG=$(node ".kilo/get-shit-done/bin/gsd-tools.cjs" generate-slug "$ARGUMENTS" --raw)
    ```
 
 2. Create the threads directory if needed:
@@ -100,7 +100,7 @@ Create a new thread:
 
 5. Commit:
    ```bash
-   node "/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/bin/gsd-tools.cjs" commit "docs: create thread — ${ARGUMENTS}" --files ".planning/threads/${SLUG}.md"
+   node ".kilo/get-shit-done/bin/gsd-tools.cjs" commit "docs: create thread — ${ARGUMENTS}" --files ".planning/threads/${SLUG}.md"
    ```
 
 6. Report:

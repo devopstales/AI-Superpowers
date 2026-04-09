@@ -19,8 +19,8 @@ Flow: Validate → Research UI → Verify UI-SPEC → Done
 </objective>
 
 <execution_context>
-@/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/workflows/ui-phase.md
-@/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/references/ui-brand.md
+@.kilo/get-shit-done/workflows/ui-phase.md
+@.kilo/get-shit-done/references/ui-brand.md
 </execution_context>
 
 <context>
@@ -28,6 +28,6 @@ Phase number: $ARGUMENTS — optional, auto-detects next unplanned phase if omit
 </context>
 
 <process>
-Execute @/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/workflows/ui-phase.md end-to-end.
+Execute @.kilo/get-shit-done/workflows/ui-phase.md end-to-end.
 Preserve all workflow gates.
 </process>

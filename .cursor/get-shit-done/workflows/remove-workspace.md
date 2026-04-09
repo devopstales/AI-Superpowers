@@ -13,7 +13,7 @@ Read all files referenced by the invoking prompt's execution_context before star
 Extract workspace name from {{GSD_ARGS}}.
 
 ```bash
-INIT=$(node "/Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/bin/gsd-tools.cjs" init remove-workspace "$WORKSPACE_NAME")
+INIT=$(node ".cursor/get-shit-done/bin/gsd-tools.cjs" init remove-workspace "$WORKSPACE_NAME")
 if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 ```
 

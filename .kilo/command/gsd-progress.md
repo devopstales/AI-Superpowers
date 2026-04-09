@@ -14,10 +14,10 @@ Provides situational awareness before continuing work.
 </objective>
 
 <execution_context>
-@/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/workflows/progress.md
+@.kilo/get-shit-done/workflows/progress.md
 </execution_context>
 
 <process>
-Execute the progress workflow from @/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/workflows/progress.md end-to-end.
+Execute the progress workflow from @.kilo/get-shit-done/workflows/progress.md end-to-end.
 Preserve all routing logic (Routes A through F) and edge case handling.
 </process>

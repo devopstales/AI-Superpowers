@@ -1,6 +1,0 @@
-{
-    "github-http": {
-        "type": "streamable-http",
-        "url": "https://api.githubcopilot.com/mcp/"
-    }
-}

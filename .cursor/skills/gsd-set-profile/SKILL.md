@@ -29,4 +29,4 @@ When the workflow needs to spawn a subagent:
 
 Show the following output to the user verbatim, with no extra commentary:
 
-!`node "/Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/bin/gsd-tools.cjs" config-set-model-profile {{GSD_ARGS}} --raw`
+!`node ".cursor/get-shit-done/bin/gsd-tools.cjs" config-set-model-profile {{GSD_ARGS}} --raw`

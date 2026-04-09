@@ -37,9 +37,9 @@ Three modes:
 </objective>
 
 <execution_context>
-@/Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/workflows/undo.md
-@/Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/references/ui-brand.md
-@/Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/references/gate-prompts.md
+@.cursor/get-shit-done/workflows/undo.md
+@.cursor/get-shit-done/references/ui-brand.md
+@.cursor/get-shit-done/references/gate-prompts.md
 </execution_context>
 
 <context>
@@ -47,5 +47,5 @@ Three modes:
 </context>
 
 <process>
-Execute the undo workflow from @/Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/workflows/undo.md end-to-end.
+Execute the undo workflow from @.cursor/get-shit-done/workflows/undo.md end-to-end.
 </process>

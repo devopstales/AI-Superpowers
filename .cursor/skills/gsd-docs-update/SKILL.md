@@ -40,7 +40,7 @@ Flag handling rule:
 </objective>
 
 <execution_context>
-@/Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/workflows/docs-update.md
+@.cursor/get-shit-done/workflows/docs-update.md
 </execution_context>
 
 <context>
@@ -58,6 +58,6 @@ Arguments: {{GSD_ARGS}}
 </context>
 
 <process>
-Execute the docs-update workflow from @/Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/workflows/docs-update.md end-to-end.
+Execute the docs-update workflow from @.cursor/get-shit-done/workflows/docs-update.md end-to-end.
 Preserve all workflow gates (preservation_check, flag handling, wave execution, monorepo dispatch, commit, reporting).
 </process>

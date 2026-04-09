@@ -36,8 +36,8 @@ Create executable phase prompts (PLAN.md files) for a roadmap phase with integra
 </objective>
 
 <execution_context>
-@/Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/workflows/plan-phase.md
-@/Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/references/ui-brand.md
+@.cursor/get-shit-done/workflows/plan-phase.md
+@.cursor/get-shit-done/references/ui-brand.md
 </execution_context>
 
 <runtime_note>
@@ -60,6 +60,6 @@ Normalize phase input in step 2 before any directory lookups.
 </context>
 
 <process>
-Execute the plan-phase workflow from @/Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/workflows/plan-phase.md end-to-end.
+Execute the plan-phase workflow from @.cursor/get-shit-done/workflows/plan-phase.md end-to-end.
 Preserve all workflow gates (validation, research, planning, verification loop, routing).
 </process>

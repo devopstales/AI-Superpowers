@@ -36,9 +36,9 @@ Accepts an optional topic argument: `/gsd-explore authentication strategy`
 </objective>
 
 <execution_context>
-@/Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/workflows/explore.md
+@.cursor/get-shit-done/workflows/explore.md
 </execution_context>
 
 <process>
-Execute the explore workflow from @/Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/workflows/explore.md end-to-end.
+Execute the explore workflow from @.cursor/get-shit-done/workflows/explore.md end-to-end.
 </process>

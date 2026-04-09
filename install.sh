@@ -1016,6 +1016,27 @@ setup_kilo() {
     log_info "Setting up Kilocode configuration..."
     ensure_dir "$tool_dir"
 
+    # Install KiloCode CLI if not already installed
+    if ! command -v kilo &>/dev/null; then
+        log_info "Installing KiloCode CLI (@kilocode/cli)..."
+        if [ "$DRY_RUN" = true ]; then
+            echo "[DRY-RUN] npm install -g @kilocode/cli"
+        else
+            if command -v npm &>/dev/null; then
+                npm install -g @kilocode/cli
+                if [ $? -eq 0 ]; then
+                    log_success "KiloCode CLI installed successfully"
+                else
+                    log_warn "KiloCode CLI installation failed — you may need to install it manually: npm install -g @kilocode/cli"
+                fi
+            else
+                log_warn "npm not found — skipping KiloCode CLI installation"
+            fi
+        fi
+    else
+        log_info "KiloCode CLI already installed"
+    fi
+
     if [ "$MERGE_MCP" = true ] && [ -n "$merged_mcp" ]; then
         echo "$merged_mcp" | jq '{mcpServers: .mcpServers}' > "$mcp_file"
         local count

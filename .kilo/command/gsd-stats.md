@@ -9,9 +9,9 @@ Display comprehensive project statistics including phase progress, plan executio
 </objective>
 
 <execution_context>
-@/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/workflows/stats.md
+@.kilo/get-shit-done/workflows/stats.md
 </execution_context>
 
 <process>
-Execute the stats workflow from @/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/workflows/stats.md end-to-end.
+Execute the stats workflow from @.kilo/get-shit-done/workflows/stats.md end-to-end.
 </process>

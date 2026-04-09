@@ -34,8 +34,8 @@ Output: {phase_num}-UI-REVIEW.md
 </objective>
 
 <execution_context>
-@/Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/workflows/ui-review.md
-@/Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/references/ui-brand.md
+@.cursor/get-shit-done/workflows/ui-review.md
+@.cursor/get-shit-done/references/ui-brand.md
 </execution_context>
 
 <context>
@@ -43,6 +43,6 @@ Phase: {{GSD_ARGS}} — optional, defaults to last completed phase.
 </context>
 
 <process>
-Execute @/Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/workflows/ui-review.md end-to-end.
+Execute @.cursor/get-shit-done/workflows/ui-review.md end-to-end.
 Preserve all workflow gates.
 </process>

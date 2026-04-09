@@ -19,7 +19,7 @@ Read all files referenced by the invoking prompt's execution_context before star
 Bootstrap via manager init:
 
 ```bash
-INIT=$(node "/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/bin/gsd-tools.cjs" init manager)
+INIT=$(node ".kilo/get-shit-done/bin/gsd-tools.cjs" init manager)
 if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 ```
 
@@ -60,7 +60,7 @@ Proceed to dashboard step.
 **Every time this step is reached**, re-read state from disk to pick up changes from background agents:
 
 ```bash
-INIT=$(node "/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/bin/gsd-tools.cjs" init manager)
+INIT=$(node ".kilo/get-shit-done/bin/gsd-tools.cjs" init manager)
 if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 ```
 

@@ -1,10 +1,11 @@
 {
+  "$schema": "https://app.kilo.ai/config.json",
   "permission": {
     "read": {
-      "/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/*": "allow"
+      ".kilo/get-shit-done/*": "allow"
     },
     "external_directory": {
-      "/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/*": "allow"
+      ".kilo/get-shit-done/*": "allow"
     }
   }
 }

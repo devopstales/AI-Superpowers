@@ -36,8 +36,8 @@ Use when you know what you want but don't know which `/gsd-*` command to run.
 </objective>
 
 <execution_context>
-@/Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/workflows/do.md
-@/Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/references/ui-brand.md
+@.cursor/get-shit-done/workflows/do.md
+@.cursor/get-shit-done/references/ui-brand.md
 </execution_context>
 
 <context>
@@ -45,6 +45,6 @@ Use when you know what you want but don't know which `/gsd-*` command to run.
 </context>
 
 <process>
-Execute the do workflow from @/Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/workflows/do.md end-to-end.
+Execute the do workflow from @.cursor/get-shit-done/workflows/do.md end-to-end.
 Route user intent to the best GSD command and invoke it.
 </process>

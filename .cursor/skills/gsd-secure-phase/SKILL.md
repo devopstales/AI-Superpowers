@@ -37,7 +37,7 @@ Output: updated SECURITY.md.
 </objective>
 
 <execution_context>
-@/Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/workflows/secure-phase.md
+@.cursor/get-shit-done/workflows/secure-phase.md
 </execution_context>
 
 <context>
@@ -45,6 +45,6 @@ Phase: {{GSD_ARGS}} — optional, defaults to last completed phase.
 </context>
 
 <process>
-Execute @/Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/workflows/secure-phase.md.
+Execute @.cursor/get-shit-done/workflows/secure-phase.md.
 Preserve all workflow gates.
 </process>

@@ -18,8 +18,8 @@ Routes to the profile-user workflow which orchestrates the full flow: consent ga
 </objective>
 
 <execution_context>
-@/Users/paladm/git/ai-test/AI-Superpowers/.opencode/get-shit-done/workflows/profile-user.md
-@/Users/paladm/git/ai-test/AI-Superpowers/.opencode/get-shit-done/references/ui-brand.md
+@.opencode/get-shit-done/workflows/profile-user.md
+@.opencode/get-shit-done/references/ui-brand.md
 </execution_context>
 
 <context>

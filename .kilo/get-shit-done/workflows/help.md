@@ -281,7 +281,7 @@ Usage: `/gsd-debug` (resume active session)
 **`/gsd-note <text>`**
 Zero-friction idea capture — one command, instant save, no questions.
 
-- Saves timestamped note to `.planning/notes/` (or `/Users/paladm/git/ai-test/AI-Superpowers/.kilo/notes/` globally)
+- Saves timestamped note to `.planning/notes/` (or `.kilo/notes/` globally)
 - Three subcommands: append (default), list, promote
 - Promote converts a note into a structured todo
 - Works without a project (falls back to global scope)

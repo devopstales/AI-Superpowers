@@ -9,10 +9,10 @@ Scan `~/gsd-workspaces/` for workspace directories containing `WORKSPACE.md` man
 </objective>
 
 <execution_context>
-@/Users/paladm/git/ai-test/AI-Superpowers/.opencode/get-shit-done/workflows/list-workspaces.md
-@/Users/paladm/git/ai-test/AI-Superpowers/.opencode/get-shit-done/references/ui-brand.md
+@.opencode/get-shit-done/workflows/list-workspaces.md
+@.opencode/get-shit-done/references/ui-brand.md
 </execution_context>
 
 <process>
-Execute the list-workspaces workflow from @/Users/paladm/git/ai-test/AI-Superpowers/.opencode/get-shit-done/workflows/list-workspaces.md end-to-end.
+Execute the list-workspaces workflow from @.opencode/get-shit-done/workflows/list-workspaces.md end-to-end.
 </process>

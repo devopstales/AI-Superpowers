@@ -19,9 +19,9 @@ Three modes:
 </objective>
 
 <execution_context>
-@/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/workflows/undo.md
-@/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/references/ui-brand.md
-@/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/references/gate-prompts.md
+@.kilo/get-shit-done/workflows/undo.md
+@.kilo/get-shit-done/references/ui-brand.md
+@.kilo/get-shit-done/references/gate-prompts.md
 </execution_context>
 
 <context>
@@ -29,5 +29,5 @@ $ARGUMENTS
 </context>
 
 <process>
-Execute the undo workflow from @/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/workflows/undo.md end-to-end.
+Execute the undo workflow from @.kilo/get-shit-done/workflows/undo.md end-to-end.
 </process>

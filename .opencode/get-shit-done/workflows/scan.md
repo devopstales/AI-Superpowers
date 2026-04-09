@@ -39,7 +39,7 @@ Exit.
 ## Step 2: Check for existing documents
 
 ```bash
-INIT=$(node "/Users/paladm/git/ai-test/AI-Superpowers/.opencode/get-shit-done/bin/gsd-tools.cjs" init map-codebase 2>/dev/null || echo "{}")
+INIT=$(node ".opencode/get-shit-done/bin/gsd-tools.cjs" init map-codebase 2>/dev/null || echo "{}")
 if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 ```
 

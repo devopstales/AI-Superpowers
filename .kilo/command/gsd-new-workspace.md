@@ -33,11 +33,11 @@ Create a physical workspace directory containing copies of specified git repos (
 </objective>
 
 <execution_context>
-@/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/workflows/new-workspace.md
-@/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/references/ui-brand.md
+@.kilo/get-shit-done/workflows/new-workspace.md
+@.kilo/get-shit-done/references/ui-brand.md
 </execution_context>
 
 <process>
-Execute the new-workspace workflow from @/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/workflows/new-workspace.md end-to-end.
+Execute the new-workspace workflow from @.kilo/get-shit-done/workflows/new-workspace.md end-to-end.
 Preserve all workflow gates (validation, approvals, commits, routing).
 </process>

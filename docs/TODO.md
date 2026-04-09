@@ -5,22 +5,22 @@
 * Cursor
 * Github Copilot
 * Kilo Code
+  * kilo cli
 * Opencode
   * OpenChamber
 * qwen code
-* pi ???
 
 ## IDE Configs
 
-|           | Copilot | Cursor | Kilo | Opencode | qwen | Antigravity | Pi |
-| --------- | ------- | ------ | ---- | -------- | ---- | ----------- | -- |
-| Commands  | `.github/prompts/` | `.cursor/commands/`? | `.kilo/commands/` | `.opencode/commands/*.md` | `.qwen/commands/` | `.agents/workflows` | ?  |
-| Skills    | `.agents/skills/`, `.claude/skills/`, `.github/skills` | `.agents/skills/`, `.cursor/skills/` | `.agents/skills/ `, `.claude/skills/ `, `.kilo/skills/` | `.agents/skills/`, `.claude/skills/`, `.opencode/skills/` | `.qwen/skills/` | `.agents/skills/` | ?  |
-| Rules     | `.vscode/instructions/*.instructions.md`, `AGENTS.md` | `.cursor/rules/` | `.kilo/rules/` | `opencode/rules/`, `AGENTS.md` | `.qwen/rules/`, `QWEN.md` | `.agents/rules/`, `.agent/skills/` | ?  |
-| Agents    | `.github/agents/` | `.cursor/agents/` | `.kilo/agents/` | `.opencode/agents/` | `.qwen/agents/` | ? | ?  |
-| Hooks     | `.github/hooks/*.json` | `.cursor/hooks.json`, `.cursor/hooks/` | ? | `.opencode/hook/hooks.md` | `.agents/hooks/` | ? | ?  |
-| MCP       | `.vscode/mcp.json` | `.cursor/mcp.json` | `.kilo/kilo.jsonc` | `.opencode/opencode.jsonc` | `.qwen/settings.json` | `~/.gemini/antigravity/mcp_config.json` | ?  |
-| plugins       | X | `.cursor/plugins/` | X    | `.opencode/plugins/` | X  | X           | ?  |
+|           | Copilot | Cursor | Kilo | Opencode | qwen | Antigravity |
+| --------- | ------- | ------ | ---- | -------- | ---- | ----------- |
+| Commands  | `.github/prompts/` | `.cursor/commands/`? | `.kilo/commands/` | `.opencode/commands/*.md` | `.qwen/commands/` | `.agents/workflows` |
+| Skills    | `.agents/skills/`, `.claude/skills/`, `.github/skills` | `.agents/skills/`, `.cursor/skills/` | `.agents/skills/ `, `.claude/skills/ `, `.kilo/skills/` | `.agents/skills/`, `.claude/skills/`, `.opencode/skills/` | `.qwen/skills/` | `.agents/skills/` |
+| Rules     | `.vscode/instructions/*.instructions.md`, `AGENTS.md` | `.cursor/rules/` | `.kilo/rules/` | `opencode/rules/`, `AGENTS.md` | `.qwen/rules/`, `QWEN.md` | `.agents/rules/`, `.agent/skills/` |
+| Agents    | `.github/agents/` | `.cursor/agents/` | `.kilo/agents/` | `.opencode/agents/` | `.qwen/agents/` | ? |
+| Hooks     | `.github/hooks/*.json` | `.cursor/hooks.json`, `.cursor/hooks/` | ? | `.opencode/hook/hooks.md` | `.agents/hooks/` | ? |
+| MCP       | `.vscode/mcp.json` | `.cursor/mcp.json` | `.kilo/kilo.jsonc` | `.opencode/opencode.jsonc` | `.qwen/settings.json` | `~/.gemini/antigravity/mcp_config.json` |
+| plugins       | X | `.cursor/plugins/` | X    | `.opencode/plugins/` | X  | X           |
 
 ### VSCode
 

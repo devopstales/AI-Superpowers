@@ -16,7 +16,7 @@ Closes the plan → execute → verify → ship loop.
 </objective>
 
 <execution_context>
-@/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/workflows/ship.md
+@.kilo/get-shit-done/workflows/ship.md
 </execution_context>
 
-Execute the ship workflow from @/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/workflows/ship.md end-to-end.
+Execute the ship workflow from @.kilo/get-shit-done/workflows/ship.md end-to-end.

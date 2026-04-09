@@ -10,9 +10,9 @@ Generate a structured SESSION_REPORT.md document capturing session outcomes, wor
 </objective>
 
 <execution_context>
-@/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/workflows/session-report.md
+@.kilo/get-shit-done/workflows/session-report.md
 </execution_context>
 
 <process>
-Execute the session-report workflow from @/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/workflows/session-report.md end-to-end.
+Execute the session-report workflow from @.kilo/get-shit-done/workflows/session-report.md end-to-end.
 </process>

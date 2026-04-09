@@ -17,9 +17,9 @@ Lightweight alternative to `/gsd-map-codebase` — spawns one mapper agent inste
 </objective>
 
 <execution_context>
-@/Users/paladm/git/ai-test/AI-Superpowers/.opencode/get-shit-done/workflows/scan.md
+@.opencode/get-shit-done/workflows/scan.md
 </execution_context>
 
 <process>
-Execute the scan workflow from @/Users/paladm/git/ai-test/AI-Superpowers/.opencode/get-shit-done/workflows/scan.md end-to-end.
+Execute the scan workflow from @.opencode/get-shit-done/workflows/scan.md end-to-end.
 </process>

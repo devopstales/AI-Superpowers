@@ -37,9 +37,9 @@ Consumed by: /gsd-new-milestone (scans seeds and presents matches)
 </objective>
 
 <execution_context>
-@/Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/workflows/plant-seed.md
+@.cursor/get-shit-done/workflows/plant-seed.md
 </execution_context>
 
 <process>
-Execute the plant-seed workflow from @/Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/workflows/plant-seed.md end-to-end.
+Execute the plant-seed workflow from @.cursor/get-shit-done/workflows/plant-seed.md end-to-end.
 </process>

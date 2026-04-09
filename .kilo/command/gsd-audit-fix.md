@@ -24,9 +24,9 @@ Flags:
 </objective>
 
 <execution_context>
-@/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/workflows/audit-fix.md
+@.kilo/get-shit-done/workflows/audit-fix.md
 </execution_context>
 
 <process>
-Execute the audit-fix workflow from @/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/workflows/audit-fix.md end-to-end.
+Execute the audit-fix workflow from @.kilo/get-shit-done/workflows/audit-fix.md end-to-end.
 </process>

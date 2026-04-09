@@ -3,8 +3,8 @@ Safe git revert workflow. Rolls back GSD phase or plan commits using the phase m
 </purpose>
 
 <required_reading>
-@/Users/paladm/git/ai-test/AI-Superpowers/.opencode/get-shit-done/references/ui-brand.md
-@/Users/paladm/git/ai-test/AI-Superpowers/.opencode/get-shit-done/references/gate-prompts.md
+@.opencode/get-shit-done/references/ui-brand.md
+@.opencode/get-shit-done/references/gate-prompts.md
 </required_reading>
 
 <process>

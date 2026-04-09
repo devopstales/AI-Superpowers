@@ -6,8 +6,8 @@ offers mid-conversation research when useful, then routes crystallized outputs t
 <required_reading>
 Read all files referenced by the invoking prompt's execution_context before starting.
 
-@/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/references/questioning.md
-@/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/references/domain-probes.md
+@.kilo/get-shit-done/references/questioning.md
+@.kilo/get-shit-done/references/domain-probes.md
 </required_reading>
 
 <available_agent_types>
@@ -111,7 +111,7 @@ For each selected output, write the file:
 
 Commit if `commit_docs` is enabled:
 ```bash
-node "/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/bin/gsd-tools.cjs" commit "docs: capture exploration — {topic_slug}" --files {file_list}
+node ".kilo/get-shit-done/bin/gsd-tools.cjs" commit "docs: capture exploration — {topic_slug}" --files {file_list}
 ```
 
 ## Step 6: Close

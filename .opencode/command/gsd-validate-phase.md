@@ -21,7 +21,7 @@ Output: updated VALIDATION.md + generated test files.
 </objective>
 
 <execution_context>
-@/Users/paladm/git/ai-test/AI-Superpowers/.opencode/get-shit-done/workflows/validate-phase.md
+@.opencode/get-shit-done/workflows/validate-phase.md
 </execution_context>
 
 <context>
@@ -29,6 +29,6 @@ Phase: $ARGUMENTS — optional, defaults to last completed phase.
 </context>
 
 <process>
-Execute @/Users/paladm/git/ai-test/AI-Superpowers/.opencode/get-shit-done/workflows/validate-phase.md.
+Execute @.opencode/get-shit-done/workflows/validate-phase.md.
 Preserve all workflow gates.
 </process>

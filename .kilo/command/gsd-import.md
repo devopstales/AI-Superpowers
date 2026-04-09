@@ -21,9 +21,9 @@ Future: `--prd` mode for PRD extraction is planned for a follow-up PR.
 </objective>
 
 <execution_context>
-@/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/workflows/import.md
-@/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/references/ui-brand.md
-@/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/references/gate-prompts.md
+@.kilo/get-shit-done/workflows/import.md
+@.kilo/get-shit-done/references/ui-brand.md
+@.kilo/get-shit-done/references/gate-prompts.md
 </execution_context>
 
 <context>

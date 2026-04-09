@@ -18,7 +18,7 @@ Output: Forensic report saved to `.planning/forensics/`, presented inline, with 
 </objective>
 
 <execution_context>
-@/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/workflows/forensics.md
+@.kilo/get-shit-done/workflows/forensics.md
 </execution_context>
 
 <context>
@@ -35,7 +35,7 @@ Output: Forensic report saved to `.planning/forensics/`, presented inline, with 
 </context>
 
 <process>
-Read and execute the forensics workflow from @/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/workflows/forensics.md end-to-end.
+Read and execute the forensics workflow from @.kilo/get-shit-done/workflows/forensics.md end-to-end.
 </process>
 
 <success_criteria>

@@ -123,7 +123,7 @@ Identify gaps that couldn't be resolved and need attention during planning.
 
 **ALWAYS use the Write tool to create files** — never use `Shell(cat << 'EOF')` or heredoc commands for file creation.
 
-Use template: /Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/templates/research-project/SUMMARY.md
+Use template: .cursor/get-shit-done/templates/research-project/SUMMARY.md
 
 Write to `.planning/research/SUMMARY.md`
 
@@ -132,7 +132,7 @@ Write to `.planning/research/SUMMARY.md`
 The 4 parallel researcher agents write files but do NOT commit. You commit everything together.
 
 ```bash
-node "/Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/bin/gsd-tools.cjs" commit "docs: complete project research" --files .planning/research/
+node ".cursor/get-shit-done/bin/gsd-tools.cjs" commit "docs: complete project research" --files .planning/research/
 ```
 
 ## Step 8: Return Summary
@@ -143,7 +143,7 @@ Return brief confirmation with key points for the orchestrator.
 
 <output_format>
 
-Use template: /Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/templates/research-project/SUMMARY.md
+Use template: .cursor/get-shit-done/templates/research-project/SUMMARY.md
 
 Key sections:
 - Executive Summary (2-3 paragraphs)

@@ -18,8 +18,8 @@ Output: Milestone archived (roadmap + requirements), PROJECT.md evolved, git tag
 <execution_context>
 **Load these files NOW (before proceeding):**
 
-- @/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/workflows/complete-milestone.md (main workflow)
-- @/Users/paladm/git/ai-test/AI-Superpowers/.kilo/get-shit-done/templates/milestone-archive.md (archive template)
+- @.kilo/get-shit-done/workflows/complete-milestone.md (main workflow)
+- @.kilo/get-shit-done/templates/milestone-archive.md (archive template)
   </execution_context>
 
 <context>

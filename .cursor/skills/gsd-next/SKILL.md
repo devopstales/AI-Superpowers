@@ -37,9 +37,9 @@ Supports `--force` flag to bypass safety gates (checkpoint, error state, verific
 </objective>
 
 <execution_context>
-@/Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/workflows/next.md
+@.cursor/get-shit-done/workflows/next.md
 </execution_context>
 
 <process>
-Execute the next workflow from @/Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/workflows/next.md end-to-end.
+Execute the next workflow from @.cursor/get-shit-done/workflows/next.md end-to-end.
 </process>

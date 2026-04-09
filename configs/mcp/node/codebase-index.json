@@ -1,6 +1,0 @@
-{
-    "codebase-index": {
-      "command": "npx",
-      "args": ["opencode-codebase-index-mcp", "--project", "./"]
-    }
-}

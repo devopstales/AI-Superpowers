@@ -32,7 +32,7 @@ Scan all phases for pending, skipped, blocked, and human_needed UAT items. Cross
 </objective>
 
 <execution_context>
-@/Users/paladm/git/ai-test/AI-Superpowers/.cursor/get-shit-done/workflows/audit-uat.md
+@.cursor/get-shit-done/workflows/audit-uat.md
 </execution_context>
 
 <context>
