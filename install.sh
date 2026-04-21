@@ -4,8 +4,8 @@
 # =============================================================================
 #
 # PURPOSE:
-#   Copies AI assistant configuration folders (Cursor, Copilot, Kilo, Qwen,
-#   OpenCode, Antigravity) from this hub repo into a target project directory.
+#   Copies AI assistant configuration folders (Cursor, Copilot, Kilo, OpenCode,
+#   Antigravity) from this hub repo into a target project directory.
 #   Merges MCP server configs from configs/mcp/ and normalizes them per-IDE.
 #
 # USAGE:
@@ -33,12 +33,12 @@
 #   3. Dependency check  → optional install of missing tools
 #   4. MCP merge         → jq-smerge configs/mcp/*.json into one object
 #   5. IDE setup         → per-IDE setup_*() writes normalized config files
-#   6. OpenSpec copy     → optional openspec/ folder sync + init
+#   6. Optional tools    → -t selects tools; CLIs via pipx/npm/brew, then hub copy + openspec init
 #
 # DEPENDENCIES:
 #   Runtime:  bash 4+, rsync, jq
 #   Optional: node, python3, pip3, npx (for MCP servers)
-#   IDE CLIs: qwen-code, opencode, kilo, semgrep, trivy (installed on demand)
+#   IDE CLIs: opencode, kilo, semgrep, trivy (installed on demand)
 #
 # VERSION: 1.0.0
 # =============================================================================
@@ -48,7 +48,8 @@ set -e
 VERSION="1.0.0"
 PROJECT_PATH=""
 SELECTED_IDES=()
-RUN_OPENSPEC=false
+SELECTED_TOOLS=()
+TOOLS_INTERACTIVE=false
 DRY_RUN=false
 UNINSTALL=false
 CHECK_DEPS=false
@@ -83,7 +84,6 @@ declare -A IDE_FOLDERS=(
     ["cursor"]=".cursor"
     ["copilot"]=".vscode"
     ["kilo"]=".kilo"
-    ["qwen"]=".qwen"
     ["opencode"]=".opencode"
     ["antigravity"]=".agents"
 )
@@ -103,14 +103,13 @@ declare -a CORE_DEPENDENCIES=(
 # Optional tooling — only checked when needed for dependency install
 # Format: "name|brew_package|pip_package|npm_package|check_command|ide_flag"
 declare -a OPTIONAL_DEPENDENCIES=(
-    "pipx|uv|||pipx --version|pipx"
+    "pipx|pipx|||pipx --version|pipx"
     "uv|uv|||uv --version|uv"
 )
 
 # IDE-specific dependencies — only checked when the corresponding IDE is selected
 # Format: "name|brew_package|pip_package|npm_package|check_command|ide_flag"
 declare -a IDE_DEPENDENCIES=(
-    "qwen-code|qwen-code|||qwen --version|qwen"
     "opencode|opencode|||opencode --version|opencode"
     "openspec|openspec|||openspec --version|openspec"
     "kilo|Kilo-Org/homebrew-tap/kilo|||kilo --version|kilo"
@@ -133,11 +132,10 @@ Options:
   -c, --cursor          Setup configuration for Cursor
   -C, --copilot         Setup configuration for Copilot
   -k, --kilo            Setup configuration for Kilocode
-  -q, --qwen            Setup configuration for Qwen Code CLI
   -o, --opencode        Setup configuration for opencode
   -a, --antigravity     Setup configuration for Google Antigravity
   -A, --all             Setup for all supported IDEs (Default if none selected)
-  -O, --openspec        Run openspec init (TARGET/openspec/) after install
+  -t, --tools           Interactive prompt to select optional tools (openspec, graphify, cocoindex-code, dmux, engram)
   -d, --deps            Check and install dependencies before install
   -y, --yes             Non-interactive mode (skip prompts)
   --no-mcp              Skip MCP server configuration
@@ -147,6 +145,7 @@ Options:
   -h, --help            Show this help message
 
 Interactive mode: On TTY with no IDE flags, choose IDEs (1-5 or a=all) and MCP servers.
+Use -t to pick optional tools interactively (openspec, graphifyy, cocoindex-code, dmux, engram — installed via brew/npm/pipx when selected).
 EOF
 }
 
@@ -195,11 +194,10 @@ interactive_ide_selection() {
     echo "  1) Cursor (.cursor/)"
     echo "  2) Copilot (.vscode/)"
     echo "  3) Kilocode (.kilo/)"
-    echo "  4) Qwen Code CLI (.qwen/)"
-    echo "  5) OpenCode (.opencode/)"
-    echo "  6) Antigravity (.agents/)"
+    echo "  4) OpenCode (.opencode/)"
+    echo "  5) Antigravity (.agents/)"
     echo ""
-    echo "  a — all six   |   e.g. 1,3,5 — only those numbers"
+    echo "  a — all five   |   e.g. 1,3,5 — only those numbers"
     echo ""
 
     local choice
@@ -207,15 +205,15 @@ interactive_ide_selection() {
         if ! read -r -p "IDE choice [a]: " choice; then
             echo ""
             ALL_IDES=true
-            SELECTED_IDES=("cursor" "copilot" "kilo" "qwen" "opencode" "antigravity")
-            log_info "IDE: all six (default)"
+            SELECTED_IDES=("cursor" "copilot" "kilo" "opencode" "antigravity")
+            log_info "IDE: all five (default)"
             return 0
         fi
         choice=$(printf '%s' "$choice" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
         if [ -z "$choice" ]; then
             ALL_IDES=true
-            SELECTED_IDES=("cursor" "copilot" "kilo" "qwen" "opencode" "antigravity")
-            log_info "IDE: all six (default)"
+            SELECTED_IDES=("cursor" "copilot" "kilo" "opencode" "antigravity")
+            log_info "IDE: all five (default)"
             return 0
         fi
         local lower
@@ -223,8 +221,8 @@ interactive_ide_selection() {
         case "$lower" in
             a|all)
                 ALL_IDES=true
-                SELECTED_IDES=("cursor" "copilot" "kilo" "qwen" "opencode" "antigravity")
-                log_info "IDE: all six"
+                SELECTED_IDES=("cursor" "copilot" "kilo" "opencode" "antigravity")
+                log_info "IDE: all five"
                 return 0
                 ;;
         esac
@@ -240,10 +238,9 @@ interactive_ide_selection() {
                 1) SELECTED_IDES+=("cursor") ;;
                 2) SELECTED_IDES+=("copilot") ;;
                 3) SELECTED_IDES+=("kilo") ;;
-                4) SELECTED_IDES+=("qwen") ;;
-                5) SELECTED_IDES+=("opencode") ;;
-                6) SELECTED_IDES+=("antigravity") ;;
-                *) invalid="invalid index: $tok (use 1–6 or a)"; break ;;
+                4) SELECTED_IDES+=("opencode") ;;
+                5) SELECTED_IDES+=("antigravity") ;;
+                *) invalid="invalid index: $tok (use 1–5 or a)"; break ;;
             esac
         done
 
@@ -252,7 +249,7 @@ interactive_ide_selection() {
             continue
         fi
         if [ ${#SELECTED_IDES[@]} -eq 0 ]; then
-            log_warn "Pick at least one number (1–6) or a for all"
+            log_warn "Pick at least one number (1–5) or a for all"
             continue
         fi
         log_info "IDE: selected ${#SELECTED_IDES[@]} tool(s)"
@@ -410,6 +407,236 @@ interactive_mcp_selection() {
     done
 }
 
+# Return 0 if optional tool id is in SELECTED_TOOLS
+tool_is_selected() {
+    local id="$1"
+    local t
+    for t in "${SELECTED_TOOLS[@]}"; do
+        [ "$t" = "$id" ] && return 0
+    done
+    return 1
+}
+
+# Ensure pipx is available (for cocoindex-code / graphify)
+ensure_pipx() {
+    command -v pipx &>/dev/null && return 0
+    if [ "$DRY_RUN" = true ]; then
+        echo "[DRY-RUN] brew install pipx  (or: pip3 install --user pipx)"
+        return 0
+    fi
+    log_info "Installing pipx..."
+    if command -v brew &>/dev/null; then
+        brew install pipx || true
+        pipx ensurepath 2>/dev/null || true
+    elif command -v pip3 &>/dev/null; then
+        pip3 install --user pipx || true
+        python3 -m pipx ensurepath 2>/dev/null || true
+    else
+        log_warn "pipx not found — install Homebrew or pip3, then: brew install pipx"
+        return 1
+    fi
+    command -v pipx &>/dev/null
+}
+
+# Install openspec CLI: prefer Homebrew, else npm global
+install_openspec_cli() {
+    if command -v openspec &>/dev/null; then
+        log_info "openspec CLI already installed"
+        return 0
+    fi
+    if [ "$DRY_RUN" = true ]; then
+        echo "[DRY-RUN] brew install openspec  ||  npm install -g @fission-ai/openspec@latest"
+        return 0
+    fi
+    if command -v brew &>/dev/null; then
+        if brew install openspec; then
+            log_success "openspec installed (Homebrew)"
+            return 0
+        fi
+    fi
+    if command -v npm &>/dev/null; then
+        log_info "Installing openspec via npm (@fission-ai/openspec@latest)..."
+        if npm install -g @fission-ai/openspec@latest; then
+            log_success "openspec installed (npm)"
+            return 0
+        fi
+    fi
+    log_warn "openspec: install manually — brew install openspec  OR  npm install -g @fission-ai/openspec@latest"
+    return 1
+}
+
+# Install CLIs for SELECTED_TOOLS (pipx / npm / brew)
+install_optional_tool_clis() {
+    [ ${#SELECTED_TOOLS[@]} -eq 0 ] && return 0
+
+    echo ""
+    echo "Optional tools — installing CLIs..."
+    echo ""
+
+    if tool_is_selected cocoindex-code || tool_is_selected graphify; then
+        ensure_pipx || true
+    fi
+
+    if tool_is_selected cocoindex-code; then
+        if command -v cocoindex &>/dev/null 2>&1 || command -v cocoindex-code &>/dev/null 2>&1; then
+            log_info "cocoindex-code CLI already present"
+        elif [ "$DRY_RUN" = true ]; then
+            echo "[DRY-RUN] pipx install 'cocoindex-code[full]'"
+        elif command -v pipx &>/dev/null; then
+            log_info "Installing cocoindex-code (pipx)..."
+            if pipx install 'cocoindex-code[full]'; then
+                log_success "cocoindex-code installed"
+            else
+                log_warn "cocoindex-code: pipx install failed"
+            fi
+        else
+            log_warn "cocoindex-code: pipx missing — run: pipx install 'cocoindex-code[full]'"
+        fi
+    fi
+
+    if tool_is_selected graphify; then
+        if command -v graphifyy &>/dev/null 2>&1 || command -v graphify &>/dev/null 2>&1; then
+            log_info "graphify CLI already present"
+        elif [ "$DRY_RUN" = true ]; then
+            echo "[DRY-RUN] pipx install graphifyy"
+        elif command -v pipx &>/dev/null; then
+            log_info "Installing graphifyy (pipx)..."
+            if pipx install graphifyy; then
+                log_success "graphifyy installed"
+            else
+                log_warn "graphifyy: pipx install failed"
+            fi
+        else
+            log_warn "graphify: pipx missing — run: pipx install graphifyy"
+        fi
+    fi
+
+    if tool_is_selected openspec; then
+        install_openspec_cli || true
+    fi
+
+    if tool_is_selected dmux; then
+        if command -v dmux &>/dev/null; then
+            log_info "dmux CLI already installed"
+        elif [ "$DRY_RUN" = true ]; then
+            echo "[DRY-RUN] npm install -g dmux"
+        elif command -v npm &>/dev/null; then
+            log_info "Installing dmux (npm -g)..."
+            if npm install -g dmux; then
+                log_success "dmux installed"
+            else
+                log_warn "dmux: npm install failed"
+            fi
+        else
+            log_warn "dmux: npm not found — install Node.js or run: npm install -g dmux"
+        fi
+    fi
+
+    if tool_is_selected engram; then
+        if command -v engram &>/dev/null; then
+            log_info "engram CLI already installed"
+        elif [ "$DRY_RUN" = true ]; then
+            echo "[DRY-RUN] brew install gentleman-programming/tap/engram"
+        elif command -v brew &>/dev/null; then
+            log_info "Installing engram (Homebrew)..."
+            if brew install gentleman-programming/tap/engram; then
+                log_success "engram installed"
+            else
+                log_warn "engram: brew install failed"
+            fi
+        else
+            log_warn "engram: Homebrew not found — run: brew install gentleman-programming/tap/engram"
+        fi
+    fi
+
+    echo ""
+}
+
+# Interactive optional tools (openspec, graphify, cocoindex-code, dmux, engram)
+interactive_tools_selection() {
+    [ "$TOOLS_INTERACTIVE" = true ] || return 0
+    [ "$NON_INTERACTIVE" != true ] || {
+        log_info "Optional tools: skipping prompt (--yes); none selected"
+        return 0
+    }
+    case "${CI:-}" in
+        true|1|yes|YES)
+            log_info "Optional tools: skipping prompt (CI)"
+            return 0
+            ;;
+    esac
+    [ -t 0 ] && [ -t 1 ] || {
+        log_warn "Optional tools: not a TTY — skipping tool selection (use a terminal for -t)"
+        return 0
+    }
+
+    echo ""
+    echo -e "${CYAN}Optional tools${NC} — CLIs installed via pipx / npm / brew when you confirm"
+    echo "  1) openspec — OpenSpec (brew or npm @fission-ai/openspec)"
+    echo "  2) graphify — graphifyy (pipx)"
+    echo "  3) cocoindex-code — CocoIndex (pipx cocoindex-code[full])"
+    echo "  4) dmux — tmux pane manager for agents (npm -g)"
+    echo "  5) engram — Engram MCP CLI (brew gentleman-programming/tap)"
+    echo ""
+    echo "  a — all five   |   n — none   |   e.g. 1,3 — pick by number"
+    echo ""
+
+    local choice
+    while true; do
+        if ! read -r -p "Tool choice [n]: " choice; then
+            echo ""
+            log_info "Optional tools: none (default)"
+            return 0
+        fi
+        choice=$(printf '%s' "$choice" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+        if [ -z "$choice" ]; then
+            log_info "Optional tools: none (default)"
+            return 0
+        fi
+        local lower
+        lower=$(printf '%s' "$choice" | tr '[:upper:]' '[:lower:]')
+        case "$lower" in
+            a|all)
+                SELECTED_TOOLS=("openspec" "graphify" "cocoindex-code" "dmux" "engram")
+                log_info "Optional tools: openspec, graphify, cocoindex-code, dmux, engram"
+                return 0
+                ;;
+            n|no|none|skip)
+                log_info "Optional tools: none"
+                return 0
+                ;;
+        esac
+
+        SELECTED_TOOLS=()
+        local tok invalid=""
+        local -a parts
+        IFS=',' read -ra parts <<< "$choice"
+        for tok in "${parts[@]}"; do
+            tok=$(printf '%s' "$tok" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+            [ -z "$tok" ] && continue
+            case "$tok" in
+                1) SELECTED_TOOLS+=("openspec") ;;
+                2) SELECTED_TOOLS+=("graphify") ;;
+                3) SELECTED_TOOLS+=("cocoindex-code") ;;
+                4) SELECTED_TOOLS+=("dmux") ;;
+                5) SELECTED_TOOLS+=("engram") ;;
+                *) invalid="invalid index: $tok (use 1–5, a, or n)"; break ;;
+            esac
+        done
+
+        if [ -n "$invalid" ]; then
+            log_warn "$invalid"
+            continue
+        fi
+        if [ ${#SELECTED_TOOLS[@]} -eq 0 ]; then
+            log_warn "Pick at least one number (1–5), a for all, or n for none"
+            continue
+        fi
+        log_info "Optional tools: selected ${#SELECTED_TOOLS[@]} tool(s)"
+        return 0
+    done
+}
+
 # Merge all MCP configs from configs/mcp.json and configs/mcp/**/*.json
 # Returns merged JSON on stdout (log messages go to stderr)
 merge_mcp_configs() {
@@ -516,16 +743,16 @@ show_dependencies() {
             fi
         done
         
-        # Special handling for openspec (-O flag)
-        if [ "$ide_flag" = "openspec" ] && [ "$RUN_OPENSPEC" = true ]; then
+        # Special handling for openspec (optional tools)
+        if [ "$ide_flag" = "openspec" ] && tool_is_selected openspec; then
             is_selected=true
         fi
-        
+
         # Check if running with -A (all)
         if [ "$ALL_IDES" = true ]; then
             is_selected=true
         fi
-        
+
         if [ "$is_selected" = false ]; then
             echo "  - $name (skipped, not selected)"
             continue
@@ -617,25 +844,25 @@ install_dependencies() {
             fi
         done
         
-        # Special handling for openspec (-O flag)
-        if [ "$ide_flag" = "openspec" ] && [ "$RUN_OPENSPEC" = true ]; then
+        # Special handling for openspec (optional tools)
+        if [ "$ide_flag" = "openspec" ] && tool_is_selected openspec; then
             is_selected=true
         fi
-        
+
         # Check if running with -A (all)
         if [ "$ALL_IDES" = true ]; then
             is_selected=true
         fi
-        
+
         if [ "$is_selected" = false ]; then
             continue
         fi
-        
+
         # Skip empty check commands
         if [ -z "$check_cmd" ]; then
             continue
         fi
-        
+
         # Check if dependency is installed
         if ! eval "$check_cmd" &>/dev/null; then
             if [ -n "$brew" ]; then
@@ -749,8 +976,8 @@ prompt_install_deps() {
             fi
         done
         
-        # Special handling for openspec (-O flag)
-        if [ "$ide_flag" = "openspec" ] && [ "$RUN_OPENSPEC" = true ]; then
+        # Special handling for openspec (optional tools)
+        if [ "$ide_flag" = "openspec" ] && tool_is_selected openspec; then
             is_selected=true
         fi
         
@@ -810,10 +1037,6 @@ while [[ $# -gt 0 ]]; do
             SELECTED_IDES+=("kilo")
             shift
             ;;
-        -q|--qwen)
-            SELECTED_IDES+=("qwen")
-            shift
-            ;;
         -o|--opencode)
             SELECTED_IDES+=("opencode")
             shift
@@ -823,12 +1046,12 @@ while [[ $# -gt 0 ]]; do
             shift
             ;;
         -A|--all)
-            SELECTED_IDES=("cursor" "copilot" "kilo" "qwen" "opencode" "antigravity")
+            SELECTED_IDES=("cursor" "copilot" "kilo" "opencode" "antigravity")
             ALL_IDES=true
             shift
             ;;
-        -O|--openspec)
-            RUN_OPENSPEC=true
+        -t|--tools)
+            TOOLS_INTERACTIVE=true
             shift
             ;;
         -d|--deps)
@@ -876,12 +1099,15 @@ interactive_ide_selection
 
 # If no IDEs selected after interactive, default to all
 if [ ${#SELECTED_IDES[@]} -eq 0 ]; then
-    SELECTED_IDES=("cursor" "copilot" "kilo" "qwen" "opencode" "antigravity")
+    SELECTED_IDES=("cursor" "copilot" "kilo" "opencode" "antigravity")
     ALL_IDES=true
 fi
 
 # Interactive MCP selection (if eligible)
 interactive_mcp_selection
+
+# Optional tools — must run before --deps counts (openspec / graphify / cocoindex-code / dmux / engram)
+interactive_tools_selection
 
 # Handle --deps flag (check and optionally install)
 if [ "$CHECK_DEPS" = true ]; then
@@ -910,8 +1136,8 @@ if [ "$CHECK_DEPS" = true ]; then
             fi
         done
 
-        # Special handling for openspec (-O flag)
-        if [ "$ide_flag" = "openspec" ] && [ "$RUN_OPENSPEC" = true ]; then
+        # Special handling for openspec (optional tools)
+        if [ "$ide_flag" = "openspec" ] && tool_is_selected openspec; then
             is_selected=true
         fi
 
@@ -1049,73 +1275,23 @@ setup_kilo() {
     log_success "Kilocode setup complete"
 }
 
-# Setup Qwen: write settings.json with normalized MCP servers
-setup_qwen() {
-    local target="$1"
-    local merged_mcp="$2"
-    local tool_dir="$target/.qwen"
-    local settings="$tool_dir/settings.json"
-
-    # jq: normalize mcpServers for Qwen (streamable-http → httpUrl)
-    local _qwen_mcp_jq='
-def qwen_normalize_mcp_servers:
-  .mcpServers |= map_values(
-    if (."type" == "streamable-http") and (.url != null and .url != "") and ((.httpUrl // "") == "") then
-      . + {httpUrl: .url} | del(.type, .url)
-    elif (."type" == "streamable-http") then
-      del(.type)
-    else . end
-  );
-'
-
-    log_info "Setting up Qwen Code CLI configuration..."
-    ensure_dir "$tool_dir"
-
-    if [ "$MERGE_MCP" != true ] || [ -z "$merged_mcp" ]; then
-        log_info "Skipping Qwen settings.json MCP (--no-mcp or no merged data)"
-        log_success "Qwen setup complete"
-        return 0
-    fi
-
-    if ! command -v jq &>/dev/null; then
-        log_warn "jq not found — cannot generate .qwen/settings.json"
-        log_success "Qwen setup complete"
-        return 0
-    fi
-
-    if [ ! -f "$settings" ]; then
-        # Create new settings.json with normalized MCP servers
-        echo "$merged_mcp" | jq "${_qwen_mcp_jq}qwen_normalize_mcp_servers" > "$settings"
-        local count
-        count=$(jq '.mcpServers | keys | length' "$settings")
-        log_success "Created: $settings ($count server(s); streamable-http → httpUrl where needed)"
-    else
-        # Merge into existing settings.json (preserve hooks, models, etc.)
-        local tmp_file=$(mktemp)
-        if jq -s "${_qwen_mcp_jq}(.[1] | qwen_normalize_mcp_servers) as \$hub | .[0] + {mcpServers: \$hub.mcpServers}" "$settings" <(echo "$merged_mcp") > "$tmp_file" 2>/dev/null; then
-            mv "$tmp_file" "$settings"
-            local count
-            count=$(jq '.mcpServers | keys | length' "$settings")
-            log_success "Updated: $settings ($count server(s); Qwen-shaped httpUrl; other keys preserved)"
-        else
-            rm -f "$tmp_file"
-            log_warn "Could not merge into $settings (jq failed)"
-        fi
-    fi
-
-    log_success "Qwen setup complete"
-}
-
-# Setup OpenCode: patch existing opencode.json with MCP servers
+# Setup OpenCode: copy configs/opencode.json then patch MCP servers into opencode.json
 setup_opencode() {
     local target="$1"
     local merged_mcp="$2"
     local tool_dir="$target/.opencode"
     local mcp_file="$tool_dir/opencode.json"
+    local hub_opencode="$SCRIPT_DIR/configs/opencode.json"
 
-    # Only update if file exists
+    ensure_dir "$tool_dir"
+
+    if [ -f "$hub_opencode" ]; then
+        cp "$hub_opencode" "$mcp_file"
+        log_success "Copied hub config -> $mcp_file"
+    fi
+
     if [ ! -f "$mcp_file" ]; then
-        log_info "Skipping opencode MCP: $mcp_file does not exist"
+        log_info "Skipping opencode: $mcp_file missing (add configs/opencode.json to hub or .opencode/)"
         return 0
     fi
 
@@ -1227,8 +1403,8 @@ main() {
             fi
         done
 
-        # Remove openspec if requested
-        if [ "$RUN_OPENSPEC" = true ]; then
+        # Remove optional tool paths when selected via -t (same session)
+        if tool_is_selected openspec; then
             target="$PROJECT_PATH/openspec"
             if [ -d "$target" ]; then
                 if [ "$DRY_RUN" = true ]; then
@@ -1240,28 +1416,43 @@ main() {
             fi
         fi
 
-        # Remove .cocoindex_code
-        target="$PROJECT_PATH/.cocoindex_code"
-        if [ -d "$target" ]; then
-            if [ "$DRY_RUN" = true ]; then
-                echo "[DRY-RUN] Would remove: .cocoindex_code"
-            else
-                echo "Removing: .cocoindex_code"
-                rm -rf "$target"
-            fi
-        fi
-
-        # Remove .github if copilot was selected
-        if [[ " ${SELECTED_IDES[*]} " =~ " copilot " ]]; then
-            target="$PROJECT_PATH/.github"
+        if tool_is_selected cocoindex-code; then
+            target="$PROJECT_PATH/.cocoindex_code"
             if [ -d "$target" ]; then
                 if [ "$DRY_RUN" = true ]; then
-                    echo "[DRY-RUN] Would remove: .github"
+                    echo "[DRY-RUN] Would remove: .cocoindex_code"
                 else
-                    echo "Removing: .github"
+                    echo "Removing: .cocoindex_code"
                     rm -rf "$target"
                 fi
             fi
+        fi
+
+        if tool_is_selected graphify; then
+            target="$PROJECT_PATH/.graphify"
+            if [ -d "$target" ]; then
+                if [ "$DRY_RUN" = true ]; then
+                    echo "[DRY-RUN] Would remove: .graphify"
+                else
+                    echo "Removing: .graphify"
+                    rm -rf "$target"
+                fi
+            fi
+        fi
+
+        # Remove .github / .copilot if copilot was selected
+        if [[ " ${SELECTED_IDES[*]} " =~ " copilot " ]]; then
+            for extra in ".github" ".copilot"; do
+                target="$PROJECT_PATH/$extra"
+                if [ -d "$target" ]; then
+                    if [ "$DRY_RUN" = true ]; then
+                        echo "[DRY-RUN] Would remove: $extra"
+                    else
+                        echo "Removing: $extra"
+                        rm -rf "$target"
+                    fi
+                fi
+            done
         fi
 
         echo ""
@@ -1297,8 +1488,8 @@ main() {
                 fi
             done
 
-            # Special handling for openspec (-O flag)
-            if [ "$ide_flag" = "openspec" ] && [ "$RUN_OPENSPEC" = true ]; then
+            # Special handling for openspec (optional tools)
+            if [ "$ide_flag" = "openspec" ] && tool_is_selected openspec; then
                 is_selected=true
             fi
 
@@ -1336,6 +1527,9 @@ main() {
         fi
     fi
 
+    # Optional tool CLIs (pipx / npm / brew) — after dep prompt, before copying configs
+    install_optional_tool_clis
+
     # Dry run info
     if [ "$DRY_RUN" = true ]; then
         echo "=== DRY RUN MODE ==="
@@ -1372,24 +1566,39 @@ main() {
         fi
     done
 
-    # Sync .agents/skills/ to each IDE's skills directory (except qwen)
+    # Copy hub configs/AGENTS.md → project root and each selected IDE config dir
+    HUB_AGENTS="$SCRIPT_DIR/configs/AGENTS.md"
+    if [ -f "$HUB_AGENTS" ] && [ ${#SELECTED_IDES[@]} -gt 0 ]; then
+        echo ""
+        if [ "$DRY_RUN" = true ]; then
+            echo "[DRY-RUN] Would copy configs/AGENTS.md -> $PROJECT_PATH/AGENTS.md"
+            for ide in "${SELECTED_IDES[@]}"; do
+                folder="${IDE_FOLDERS[$ide]}"
+                echo "[DRY-RUN] Would copy configs/AGENTS.md -> $PROJECT_PATH/$folder/AGENTS.md"
+            done
+        else
+            echo "Copying AGENTS.md from hub (configs/AGENTS.md)..."
+            cp "$HUB_AGENTS" "$PROJECT_PATH/AGENTS.md"
+            log_success "Wrote AGENTS.md (project root)"
+            for ide in "${SELECTED_IDES[@]}"; do
+                folder="${IDE_FOLDERS[$ide]}"
+                dst_dir="$PROJECT_PATH/$folder"
+                ensure_dir "$dst_dir"
+                cp "$HUB_AGENTS" "$dst_dir/AGENTS.md"
+                log_success "Wrote $folder/AGENTS.md"
+            done
+        fi
+    elif [ ! -f "$HUB_AGENTS" ] && [ ${#SELECTED_IDES[@]} -gt 0 ]; then
+        log_info "configs/AGENTS.md not found in hub — skipping AGENTS.md copy"
+    fi
+
+    # Sync .agents/skills/ to each IDE's skills directory
     echo ""
     echo "Syncing skills configurations..."
     SKILLS_SRC="$SCRIPT_DIR/.agents/skills"
     if [ -d "$SKILLS_SRC" ]; then
         for ide in "${SELECTED_IDES[@]}"; do
             case "$ide" in
-                qwen)
-                    # Qwen: sync .agents/skills/* → .qwen/skills/
-                    target="$PROJECT_PATH/.qwen/skills"
-                    if [ "$DRY_RUN" = true ]; then
-                        echo "[DRY-RUN] Would sync skills to: .qwen/skills"
-                    else
-                        ensure_dir "$target"
-                        echo "Syncing skills to: .qwen/skills"
-                        rsync -av --delete "$SKILLS_SRC/" "$target/"
-                    fi
-                    ;;
                 antigravity)
                     # Antigravity: sync .agents/skills/ → .agents/skills/
                     target="$PROJECT_PATH/.agents/skills"
@@ -1440,29 +1649,31 @@ main() {
         log_info "Skills source not found: $SKILLS_SRC — skipping skills sync"
     fi
 
-    # Sync .github/ when Copilot is selected
+    # Sync .github/ and .copilot/ when Copilot is selected
     if [[ " ${SELECTED_IDES[*]} " =~ " copilot " ]]; then
-        src="$SCRIPT_DIR/.github"
-        dst="$PROJECT_PATH/.github"
-        if [ -d "$src" ]; then
-            if [ -d "$dst" ]; then
-                if [ "$DRY_RUN" = true ]; then
-                    echo "[DRY-RUN] Would update: .github"
+        for extra in ".github" ".copilot"; do
+            src="$SCRIPT_DIR/$extra"
+            dst="$PROJECT_PATH/$extra"
+            if [ -d "$src" ]; then
+                if [ -d "$dst" ]; then
+                    if [ "$DRY_RUN" = true ]; then
+                        echo "[DRY-RUN] Would update: $extra"
+                    else
+                        echo "Updating: $extra"
+                        rsync -av "$src/" "$dst/"
+                    fi
                 else
-                    echo "Updating: .github"
-                    rsync -av "$src/" "$dst/"
+                    if [ "$DRY_RUN" = true ]; then
+                        echo "[DRY-RUN] Would create: $extra"
+                    else
+                        echo "Creating: $extra"
+                        rsync -av "$src/" "$dst/"
+                    fi
                 fi
             else
-                if [ "$DRY_RUN" = true ]; then
-                    echo "[DRY-RUN] Would create: .github"
-                else
-                    echo "Creating: .github"
-                    rsync -av "$src/" "$dst/"
-                fi
+                echo "Skipping: $extra (not found in source)"
             fi
-        else
-            echo "Skipping: .github (not found in source)"
-        fi
+        done
     fi
 
     # Merge MCP configs
@@ -1506,13 +1717,6 @@ main() {
                     setup_opencode "$PROJECT_PATH" "$MERGED_MCP"
                 fi
                 ;;
-            qwen)
-                if [ "$DRY_RUN" = true ]; then
-                    echo "[DRY-RUN] Would setup: Qwen"
-                else
-                    setup_qwen "$PROJECT_PATH" "$MERGED_MCP"
-                fi
-                ;;
             antigravity)
                 if [ "$DRY_RUN" = true ]; then
                     echo "[DRY-RUN] Would setup: Antigravity"
@@ -1523,8 +1727,8 @@ main() {
         esac
     done
 
-    # Copy openspec directory if it exists
-    if [ -d "$SCRIPT_DIR/openspec" ]; then
+    # Optional tool: openspec (hub → project)
+    if tool_is_selected openspec && [ -d "$SCRIPT_DIR/openspec" ]; then
         target="$PROJECT_PATH/openspec"
         if [ -d "$target" ]; then
             if [ "$DRY_RUN" = true ]; then
@@ -1541,10 +1745,12 @@ main() {
                 eval rsync -av $RSYNC_EXCLUDES "$SCRIPT_DIR/openspec/" "$target/"
             fi
         fi
+    elif tool_is_selected openspec && [ ! -d "$SCRIPT_DIR/openspec" ]; then
+        log_info "openspec: hub has no openspec/ — skip copy"
     fi
 
-    # Copy .cocoindex_code directory if it exists
-    if [ -d "$SCRIPT_DIR/.cocoindex_code" ]; then
+    # Optional tool: cocoindex-code
+    if tool_is_selected cocoindex-code && [ -d "$SCRIPT_DIR/.cocoindex_code" ]; then
         target="$PROJECT_PATH/.cocoindex_code"
         if [ -d "$target" ]; then
             if [ "$DRY_RUN" = true ]; then
@@ -1561,10 +1767,12 @@ main() {
                 rsync -av "$SCRIPT_DIR/.cocoindex_code/" "$target/"
             fi
         fi
+    elif tool_is_selected cocoindex-code && [ ! -d "$SCRIPT_DIR/.cocoindex_code" ]; then
+        log_info "cocoindex-code: hub has no .cocoindex_code/ — skip copy"
     fi
 
-    # Run openspec init if requested
-    if [ "$RUN_OPENSPEC" = true ]; then
+    # Run openspec init when openspec tool selected
+    if tool_is_selected openspec; then
         echo ""
         if [ "$DRY_RUN" = true ]; then
             echo "[DRY-RUN] Would run: openspec init in $PROJECT_PATH/openspec"

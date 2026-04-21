@@ -2,6 +2,8 @@
 
 Model Context Protocol (MCP) server configurations for AI coding assistants. Servers are merged from `configs/mcp/` and written to each IDE's expected config location.
 
+See also: [Tools and dependencies](tools-and-dependencies.md) (how `install.sh` checks and installs CLIs used with MCP).
+
 ## Configuration Merge
 
 MCP configs are **merged** from multiple source directories and written as real files (not symlinks):
@@ -21,7 +23,6 @@ MCP configs are **merged** from multiple source directories and written as real 
 | Cursor | `.cursor/mcp.json` | `{mcpServers: {...}}` |
 | Copilot | `.vscode/mcp.json` | `{servers: {...}}` |
 | Kilocode | `.kilo/mcp.json` | `{mcpServers: {...}}` |
-| Qwen | `.qwen/settings.json` | `{mcpServers: {...}}` (httpUrl normalized) |
 | OpenCode | `.opencode/opencode.json` | `{mcp: {...}}` (converted format) |
 | Antigravity | `~/.gemini/antigravity/mcp_config.json` | `{mcpServers: {...}}` (global) |
 

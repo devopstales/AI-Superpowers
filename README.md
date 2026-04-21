@@ -56,6 +56,8 @@ MCP configs are **merged** from `configs/mcp/` and written as real files (not sy
 - `semgrep` — Static analysis
 - `trivy` — Security scanning (auto-installs MCP plugin)
 
+Full detail (install commands, optional **`-t`** tools, and flags): [Tools and dependencies](docs/tools-and-dependencies.md).
+
 Install dependencies interactively:
 ```bash
 ./install.sh -p /path/to/project -A -d
@@ -85,10 +87,10 @@ Use `-y` for CI/CD or scripted installs:
 
 ## OpenSpec
 
-Run `openspec init` after install with `-O`:
+Select the **openspec** optional tool with **`-t`**, then complete the install; the script copies hub `openspec/` when applicable and runs **`openspec init`** in the project.
 
 ```bash
-./install.sh -p /path/to/project -A -y -O
+./install.sh -p /path/to/project -t
 ```
 
 ## Uninstall
@@ -102,8 +104,9 @@ Run `openspec init` after install with `-O`:
 | Topic | Description | Intended Usage |
 |---|---|---|
 | [Skills](docs/skills.md) | Complete skill library — 249 skills across 15+ categories | When to use which skill, model routing, activation triggers |
-| [Commands](docs/commands.md) | Slash commands across IDEs — 92 Opencode, 83 Kilo, 9 Qwen | Running reviews, tests, builds, OpenSpec/SDD workflows |
+| [Commands](docs/commands.md) | Slash commands across IDEs — Opencode, Kilo, Copilot, and more | Running reviews, tests, builds, OpenSpec/SDD workflows |
 | [MCP Servers](docs/mcp.md) | Model Context Protocol servers — HTTP, Docker, Node, Command | Adding servers, configuring integrations, troubleshooting |
+| [Tools and dependencies](docs/tools-and-dependencies.md) | What `install.sh` installs — core/IDE deps, optional `-t` tools, Brew/npm/pipx | Choosing flags, debugging missing CLIs |
 | [IDE Configs](docs/TODO.md) | IDE configuration matrix — commands, skills, rules, agents, hooks, MCP | Understanding how each IDE maps to config files |
 | [CocoIndex Code](docs/cocoindex-code.md) | Code indexing with cocoindex | Code search and indexing setup |
 
@@ -115,7 +118,6 @@ ai-configs/
 ├── package.json            # npm dependencies (MCP servers)
 ├── .cursor/                # Cursor config source
 ├── .kilo/                  # Kilocode config source
-├── .qwen/                  # Qwen config source
 ├── .opencode/              # OpenCode config source
 ├── .vscode/                # Copilot config source
 ├── .agents/                # Antigravity config source
@@ -137,6 +139,7 @@ ai-configs/
     ├── skills.md           # Skill reference
     ├── commands.md         # Command reference
     ├── mcp.md              # MCP server documentation
+    ├── tools-and-dependencies.md  # install.sh deps and optional tools
     ├── TODO.md             # IDE config matrix
     └── cocoindex-code.md   # Code indexing docs
 ```
