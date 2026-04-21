@@ -8,7 +8,6 @@ Slash commands and custom commands across supported AI coding IDEs.
 |-----|-----------------|-------|
 | Opencode | `.opencode/commands/` | 92 |
 | Kilo | `.kilo/commands/` | 83 |
-| Qwen | `.qwen/commands/` | 9 |
 | Cursor | `.cursor/commands/` | — |
 | Copilot | `.github/prompts/` | — |
 
@@ -53,20 +52,20 @@ Slash commands and custom commands across supported AI coding IDEs.
 | Command | Description | IDEs |
 |---------|-------------|------|
 | `security` | Security review and audit | Opencode, Kilo |
-| `semgrep-scan` | Run Semgrep security analysis | Opencode, Kilo, Qwen |
-| `trivy-scan` | Run Trivy vulnerability scan | Opencode, Kilo, Qwen |
+| `semgrep-scan` | Run Semgrep security analysis | Opencode, Kilo |
+| `trivy-scan` | Run Trivy vulnerability scan | Opencode, Kilo |
 
 ### OpenSpec Workflow
 
 | Command | Description | IDEs |
 |---------|-------------|------|
-| `opsx-explore` | Explore requirements and ideas | Opencode, Kilo, Qwen |
-| `opsx-propose` | Propose a new change | Opencode, Kilo, Qwen |
-| `opsx-apply` | Apply/implement a change | Opencode, Kilo, Qwen |
-| `opsx-verify` | Verify implementation against spec | Opencode, Kilo, Qwen |
-| `opsx-archive` | Archive a completed change | Opencode, Kilo, Qwen |
-| `opsx-sync` | Sync delta specs to main specs | Opencode, Kilo, Qwen |
-| `opsx-onboard` | Guided OpenSpec onboarding | Opencode, Kilo, Qwen |
+| `opsx-explore` | Explore requirements and ideas | Opencode, Kilo |
+| `opsx-propose` | Propose a new change | Opencode, Kilo |
+| `opsx-apply` | Apply/implement a change | Opencode, Kilo |
+| `opsx-verify` | Verify implementation against spec | Opencode, Kilo |
+| `opsx-archive` | Archive a completed change | Opencode, Kilo |
+| `opsx-sync` | Sync delta specs to main specs | Opencode, Kilo |
+| `opsx-onboard` | Guided OpenSpec onboarding | Opencode, Kilo |
 
 ### SDD Workflow
 
@@ -205,20 +204,6 @@ Slash commands and custom commands across supported AI coding IDEs.
 | `eval` | Run evaluation suite | Opencode, Kilo |
 | `verify` | Verify implementation | Opencode, Kilo |
 
-## Qwen-Specific Commands
-
-| Command | Description |
-|---------|-------------|
-| `opsx-apply.md` | Apply OpenSpec change |
-| `opsx-archive.md` | Archive OpenSpec change |
-| `opsx-explore.md` | Explore mode |
-| `opsx-onboard.md` | Onboarding |
-| `opsx-propose.md` | Propose change |
-| `opsx-sync.md` | Sync specs |
-| `opsx-verify.md` | Verify change |
-| `semgrep-scan.md` | Semgrep security scan |
-| `trivy-scan.md` | Trivy vulnerability scan |
-
 ## Command Format
 
 Commands are Markdown files that define behavior. Example structure:
@@ -249,7 +234,6 @@ Expected output format.
 |-----|------|-------|
 | Opencode | `.opencode/commands/*.md` | Full command library |
 | Kilo | `.kilo/commands/*.md` | Subset of Opencode commands |
-| Qwen | `.qwen/commands/*.md` | OpenSpec + security scans |
 | Cursor | `.cursor/commands/` | Custom commands (if any) |
 | Copilot | `.github/prompts/` | GitHub prompt files |
 

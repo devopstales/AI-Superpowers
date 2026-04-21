@@ -9,7 +9,6 @@ Centralized AI agent configuration for multiple IDEs and coding assistants. One 
 | Cursor | `-c` | `.cursor/` |
 | GitHub Copilot | `-C` | `.vscode/` |
 | Kilocode | `-k` | `.kilo/` |
-| Qwen Code CLI | `-q` | `.qwen/` |
 | OpenCode | `-o` | `.opencode/` |
 | Google Antigravity | `-a` | `.agents/` |
 
@@ -51,7 +50,6 @@ MCP configs are **merged** from `configs/mcp/` and written as real files (not sy
 - `jq` — JSON processing (required for MCP merge)
 
 ### IDE-Specific (optional)
-- `qwen-code` — Qwen Code CLI
 - `opencode` — OpenCode
 - `openspec` — OpenSpec
 - `kilo` — Kilocode
@@ -67,7 +65,7 @@ Install dependencies interactively:
 
 When run on a TTY without IDE flags, the installer prompts:
 
-1. **IDE Selection** — choose which tools to configure (1-6 or all)
+1. **IDE Selection** — choose which tools to configure (1-5 or all)
 2. **MCP Server Selection** — choose which servers to enable (all, skip, or subset)
 
 ## Non-Interactive Mode
@@ -79,7 +77,7 @@ Use `-y` for CI/CD or scripted installs:
 ./install.sh -p /path/to/project -A -y
 
 # Specific IDEs, no MCP
-./install.sh -p /path/to/project -c -q --no-mcp -y
+./install.sh -p /path/to/project -c -o --no-mcp -y
 
 # With dependency check
 ./install.sh -p /path/to/project -A -y -d

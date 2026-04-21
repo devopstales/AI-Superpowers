@@ -123,40 +123,6 @@
 }
 ```
 
-### QWEN
-
-```json
-.qwen/settings.json
-{
-  "mcpServers": {
-    "deepwiki": {
-      "type": "streamable-http",
-      "httpUrl": "https://mcp.deepwiki.com/mcp"
-    }
-  }
-}
-```
-
-```json
-.qwen/setting.json
-{
-  "hooks": {
-    "Notification": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "notify-send 'Claude Code' 'Awaiting your input'"
-          }
-        ]
-      }
-    ]
-  }
-}
-# https://github.com/QwenLM/qwen-code/issues/1708
-```
-
 ### pi
 
 ```bash
@@ -188,3 +154,7 @@ gsd install npm:pi-dashscope
   * [Awesome Copilot Agents](https://awesome-copilot.github.com/agents/)
 * [X] [GSD](https://github.com/vudovn/antigravity-kit)
 * [ ] [GSD-2](https://github.com/gsd-build/gsd-2)
+* tools
+  * [X] [CocoIndex Code](https://github.com/cocoindex-io/cocoindex-code)
+  * [ ] [graphify](https://github.com/safishamsi/graphify)
+  * [ ] [dmux](https://github.com/standardagents/dmux)

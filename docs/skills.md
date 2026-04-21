@@ -383,7 +383,6 @@ Different IDEs reference skills from different locations:
 | Cursor | `.agents/skills/` |
 | Kilo | `.kilo/skills/` |
 | Opencode | `.opencode/skills/` |
-| Qwen | `.qwen/skills/` |
 | Antigravity | `.agents/skills/` |
 
 ## Usage Patterns
